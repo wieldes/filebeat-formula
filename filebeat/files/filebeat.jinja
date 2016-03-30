@@ -46,22 +46,22 @@ output:
 {%- set elasticsearch = filebeat.get('elasticsearch', {}) %}
 {%- set logstash = filebeat.get('logstash', {}) %}
 
-{%- if filebeat.elasticsearch.get('enabled', False) %}
+{%- if elasticsearch.get('enabled', False) %}
   elasticsearch:
-    hosts: ["http://{{ filebeat.elasticsearch.server }}"]
+    hosts: ["http://{{ elasticsearch.server }}"]
 {%- endif %}
 
-{%- if filebeat.logstash.get('enabled', False) %}
+{%- if logstash.get('enabled', False) %}
   logstash:
-    hosts: ["{{ filebeat.logstash.server }}"]
+    hosts: ["{{ logstash.server }}"]
     worker: 1
     loadbalance: true
     index: filebeat
 
-{%- if 'tls' in filebeat.logstash %}
-{%- if filebeat.logstash.tls.get('enabled', False) %}
+{%- if 'tls' in logstash %}
+{%- if logstash.tls.get('enabled', False) %}
     tls:
-      certificate_authorities: ["{{ filebeat.logstash.tls.ssl_cert_path }}"]
+      certificate_authorities: ["{{ logstash.tls.ssl_cert_path }}"]
 {%- endif %}
 {%- endif %}
 {%- endif %}
