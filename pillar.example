@@ -30,7 +30,13 @@ filebeat:
       fields:
         - env: my_environment
         - server_role: webserver
-
+    - 
+      paths:
+        - '/var/log/example/*.json'
+      json.enabled: true
+      json.message_key: json
+      json.keys_under_root: true
+      json.add_error_key: true 
   
   elasticsearch:
     enabled: False
