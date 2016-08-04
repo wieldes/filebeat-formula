@@ -10,7 +10,7 @@ filebeat:
       paths:
         - '/var/log/auth.log'
         - '/var/log/syslog'
-    - 
+    -
       paths:
         - '/var/log/apache2/access.log'
       input_type: 'log'
@@ -30,27 +30,27 @@ filebeat:
       fields:
         - env: my_environment
         - server_role: webserver
-    - 
+    -
       paths:
         - '/var/log/example/*.json'
       json.enabled: true
       json.message_key: json
       json.keys_under_root: true
-      json.add_error_key: true 
-  
+      json.add_error_key: true
+
   elasticsearch:
     enabled: False
     server: 127.0.0.1:9200
 
-  logstash: 
+  logstash:
     enabled: True
-    server: 127.0.0.1:5044
+    server:
+      - logstash-shipper1:5044
+      - logstash-shipper2:5044
+
     tls:
       enabled: True
       # this is the public key from your ELK server
       # default path is salt://filebeat/files/ca.pem
-      ssl_cert: salt://mycustom/filebeat/logstash-forwarder.crt 
+      ssl_cert: salt://mycustom/filebeat/logstash-forwarder.crt
       ssl_cert_path: /etc/pki/tls/certs/logstash-forwarder.crt
-
-
-

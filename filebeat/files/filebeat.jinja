@@ -23,7 +23,7 @@ filebeat:
       json.keys_under_root: {{ log_path.get('json.keys_under_root', 'true') }}
       json.add_error_key: {{ log_path.get('json.add_error_key', 'true') }}
       {%- endif %}
-      
+
 {%- if 'multiline' in log_path %}
       multiline:
         pattern: "{{ log_path.multiline.get('pattern', '') }}"
@@ -59,7 +59,7 @@ output:
 
 {%- if logstash.get('enabled', False) %}
   logstash:
-    hosts: ["{{ logstash.server }}"]
+    hosts: {{ logstash.server }}
     worker: 1
     loadbalance: true
     index: filebeat
