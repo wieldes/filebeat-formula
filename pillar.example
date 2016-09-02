@@ -50,7 +50,10 @@ filebeat:
 
     tls:
       enabled: True
-      # this is the public key from your ELK server
-      # default path is salt://filebeat/files/ca.pem
-      ssl_cert: salt://mycustom/filebeat/logstash-forwarder.crt
+      # path to the certificate of your ELK server
+      # set to empty to use system certificates
       ssl_cert_path: /etc/pki/tls/certs/logstash-forwarder.crt
+      # path to the certificate of your ELK server to be installed
+      # default is salt://filebeat/files/ca.pem
+      # set to empty to disable
+      ssl_cert: salt://mycustom/filebeat/logstash-forwarder.crt

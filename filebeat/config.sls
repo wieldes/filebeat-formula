@@ -1,9 +1,11 @@
 {% from "filebeat/map.jinja" import conf with context %}
 
-{% if salt['pillar.get']('filebeat:logstash:tls:enabled', False)  %}
-{{ salt['pillar.get']('filebeat:logstash:tls:ssl_cert_path', '/etc/pki/tls/certs/logstash-forwarder.crt') }}:
+{% set ssl_cert = salt['pillar.get']('filebeat:logstash:tls:ssl_cert', 'salt://filebeat/files/ca.pem') %}
+{% set ssl_cert_path = salt['pillar.get']('filebeat:logstash:tls:ssl_cert_path') %}
+{% if salt['pillar.get']('filebeat:logstash:tls:enabled', False) and ssl_cert and ssl_cert_path %}
+{{ ssl_cert_path }}:
   file.managed:
-    - source: {{ salt['pillar.get']('filebeat:logstash:tls:ssl_cert', 'salt://filebeat/files/ca.pem') }}
+    - source: {{ ssl_cert }}
     - template: jinja
     - makedirs: True
     - user: root
