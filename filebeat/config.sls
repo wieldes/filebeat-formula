@@ -2,7 +2,8 @@
 
 {% set ssl_cert = salt['pillar.get']('filebeat:logstash:tls:ssl_cert', 'salt://filebeat/files/ca.pem') %}
 {% set ssl_cert_path = salt['pillar.get']('filebeat:logstash:tls:ssl_cert_path') %}
-{% if salt['pillar.get']('filebeat:logstash:tls:enabled', False) and ssl_cert and ssl_cert_path %}
+{% set managed_cert = salt['pillar.get']('filebeat:logstash:tls:managed_cert', True) %}
+{% if salt['pillar.get']('filebeat:logstash:tls:enabled', False) and ssl_cert and ssl_cert_path and managed_cert %}
 {{ ssl_cert_path }}:
   file.managed:
     - source: {{ ssl_cert }}
