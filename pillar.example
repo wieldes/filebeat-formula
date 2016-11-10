@@ -57,3 +57,5 @@ filebeat:
       # default is salt://filebeat/files/ca.pem
       # set to empty to disable
       ssl_cert: salt://mycustom/filebeat/logstash-forwarder.crt
+      # If you want to manage your own certs, set below to False
+      managed_cert: False
