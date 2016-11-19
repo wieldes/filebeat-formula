@@ -39,3 +39,23 @@ filebeat:
 Starts the filebeat service. 
 
 **Due to filebeat requiring tty to start, this state uses a SSH loopback to achieve this. (use_vt / sudoers !requiretty did not resolve this on 2015.8.x...)**
+
+
+Testing
+=======
+
+Testing is done with [Test Kitchen](http://kitchen.ci/)
+for machine setup and [testinfra](https://testinfra.readthedocs.io/en/latest/)
+for integration tests.
+
+Requirements
+------------
+
+* Python
+* Ruby
+* Docker
+
+    pip install -r requirements.txt
+    gem install bundler
+    bundle install
+    bundle exec kitchen test
